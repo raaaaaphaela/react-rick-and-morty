@@ -1,10 +1,15 @@
-import CharacterCard, {Character} from "./CharacterCard";
+import CharacterCard from "./CharacterCard";
+import {Card} from "./Card";
 
-export default function CharacterGallery (props: {characters: Character[]}) {
+
+export default function CharacterGallery ({characters, onDelete}: {
+    characters: Card[],
+    onDelete: (id: number) => void
+}) {
     return (
         <div className="character-gallery">
-            {props.characters.map((character: Character, index: number) => {
-                return <CharacterCard character={character} key={index}/>
+            {characters.map((character: Card, index: number) => {
+                return <CharacterCard {...character} onDelete={onDelete} key={index}/>
             })}
         </div>
     );

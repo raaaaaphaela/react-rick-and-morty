@@ -15,9 +15,9 @@ code {
   text-align: center;
 }
 
-.buttons button {
-  padding: 1rem 2rem;
-  background-color: #61dafb;
+.buttons button, .delete-btn {
+  padding: 10px 20px;
+  background-color: grey;
   border: none;
   margin: 1rem;
   cursor: pointer;
