@@ -2,10 +2,11 @@ import React from 'react';
 import './App.css';
 import './Rick-and-Morty.css';
 import CharacterGallery from "./CharacterGallery";
+import {Character} from "./CharacterCard";
 
 function App() {
 
-    const characters = [
+    const allCharacters = [
         {
             "id": 1,
             "name": "Rick Sanchez",
@@ -1132,10 +1133,19 @@ function App() {
         }
     ];
 
+    const filteredCharacters: Character[] = allCharacters.map(character => {
+        return {
+            "id": character.id,
+            "name": character.name,
+            "image": character.image,
+            "status": character.status
+        };
+    })
+
     return (
         <div>
             <h1 className="header">Rick and Morty</h1>
-            <CharacterGallery characters={characters}/>
+            <CharacterGallery characters={filteredCharacters}/>
         </div>
     );
 }
