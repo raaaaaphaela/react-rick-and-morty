@@ -1144,7 +1144,7 @@ function App() {
 
     return (
         <div>
-            <h1 className="header">Rick and Morty</h1>
+            <h1 className="header">Rick and Morty Character</h1>
             <CharacterGallery characters={filteredCharacters}/>
         </div>
     );
