@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import './Rick-and-Morty.css';
 import CharacterGallery from "./CharacterGallery";
 import {Character} from "./CharacterCard";
+import Button from "./Button";
 
 function App() {
+
+    const [count, setCount] = useState<number>(0);
 
     const allCharacters = [
         {
@@ -1142,8 +1145,13 @@ function App() {
         };
     })
 
+    let addToCount = () => setCount(count+1);
+    let takeFromCount = () => setCount(count-1);
+
     return (
         <div>
+            <Button count={count} addFunction={addToCount} takeFunction={takeFromCount}/>
+            <hr/>
             <h1 className="header">Rick and Morty Character</h1>
             <CharacterGallery characters={filteredCharacters}/>
         </div>

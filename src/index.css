@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.buttons {
+  text-align: center;
+}
+
+.buttons button {
+  padding: 1rem 2rem;
+  background-color: #61dafb;
+  border: none;
+  margin: 1rem;
+  cursor: pointer;
+}
