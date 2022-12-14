@@ -30,7 +30,20 @@
 
 #filter {
     margin: 1rem;
-   background-color: #f6f5f5;
+    background-color: #cbb8b8;
     border: 1px solid grey;
     border-radius: 5px;
+    padding: 8px;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.buttons button, .delete-btn {
+    padding: 10px 20px;
+    background-color: #cbb8b8;
+    border: none;
+    margin: 1rem;
+    cursor: pointer;
 }

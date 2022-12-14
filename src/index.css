@@ -11,14 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.buttons {
-  text-align: center;
-}
-
-.buttons button, .delete-btn {
-  padding: 10px 20px;
-  background-color: grey;
-  border: none;
-  margin: 1rem;
-  cursor: pointer;
-}

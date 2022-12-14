@@ -10,16 +10,17 @@ function App() {
 
     const [count, setCount] = useState<number>(0);
     const [characters, setCharacters] = useState<Card[]>([]);
+    const [page, setPage] = useState<number>(1);
 
-    const getCharacters = () => {
-        return axios.get("https://rickandmortyapi.com/api/character")
+    const getCharacters = (page: number) => {
+        return axios.get("https://rickandmortyapi.com/api/character?page=" + page)
             .then(response => response.data)
             .catch(e => console.log(e));
     }
 
     useEffect(() => {
-        getCharacters().then(data => setCharacters(data.results))
-    }, []);
+        getCharacters(page).then(data => setCharacters(data.results))
+    }, [page]);
 
     const data: Card[] = characters.map(({id, name, image, status}) => {
         return {
@@ -34,12 +35,20 @@ function App() {
         setCharacters(characters.filter((character) => character.id !== id))
     }
 
+    /* Pagination */
+    const nextPage = () => {
+        setPage(page+1);
+    }
+
+    const prevPage = () => {
+        page === 1 ? setPage(page) : setPage(page-1);
+    }
+
     return (
         <div>
             <Button count={count} addFunction={() => setCount(count + 1)} takeFunction={() => setCount(count - 1)}/>
             <hr/>
-            <h1 className="header">Rick and Morty Character</h1>
-            <CharacterGallery characters={data} onDelete={onDelete}/>
+            <CharacterGallery characters={data} onDelete={onDelete} next={nextPage} prev={prevPage}/>
         </div>
     );
 }

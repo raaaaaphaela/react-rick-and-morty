@@ -1,19 +1,24 @@
 import CharacterCard from "./CharacterCard";
 import {Card} from "./Card";
-import {useState} from "react";
+import React, {useState} from "react";
+import Pagination from "./Pagination";
 
-export default function CharacterGallery({characters, onDelete}: {
+export default function CharacterGallery({characters, onDelete, next, prev}: {
     characters: Card[],
     onDelete: (id: number) => void,
+    next: () => void,
+    prev: () => void
 }) {
     const [filter, setFilter] = useState("");
 
     return (<div className="gallery">
+            <h1 className="header">Rick and Morty Character</h1>
             <div>
                 <label htmlFor="filter">Nach Namen filtern:</label>
-            <input id="filter" type="text" name="title" value={filter}
-                   onChange={e => setFilter(e.target.value.toLowerCase())}/>
+                <input id="filter" type="text" name="title" value={filter}
+                       onChange={e => setFilter(e.target.value.toLowerCase())}/>
             </div>
+            <Pagination next={next} prev={prev}/>
             <div className="character-gallery">
                 {characters.filter(character => character.name.toLowerCase().includes(filter)).map((character: Card, index: number) => {
                     return <CharacterCard {...character} onDelete={onDelete} key={index}/>
