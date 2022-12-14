@@ -9,7 +9,7 @@ import {Card} from "./Card";
 function App() {
 
     const [count, setCount] = useState<number>(0);
-    const [characters, setCharacters] = useState([]);
+    const [characters, setCharacters] = useState<Card[]>([]);
 
     const getCharacters = () => {
         return axios.get("https://rickandmortyapi.com/api/character")
@@ -31,8 +31,8 @@ function App() {
     });
 
     const onDelete = (id: number) => {
-        // @ts-ignore
-        setCharacters(characters.filter((character) => character.id !== id))}
+        setCharacters(characters.filter((character) => character.id !== id))
+    }
 
     return (
         <div>
