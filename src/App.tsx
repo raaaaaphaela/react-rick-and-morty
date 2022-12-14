@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import './Rick-and-Morty.css';
 import CharacterGallery from "./CharacterGallery";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {Card} from "./Card";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
     /* API calls */
     async function getCharacters(): Promise<Card[]> {
         try {
-            const response = await axios.get("https://rickandmortyapi.com/api/character?page=" + page);
+            const response = await axios.get("https://rickandmortyapi.com/api/charactesr?page=" + page);
             return response.data.results;
         } catch (e) {
             throw e;
@@ -38,7 +38,7 @@ function App() {
                 const characters = await getCharacters();
                 setCharacters(characters);
             } catch (e) {
-                console.log(e);
+                console.log((e as Error).message);
             }
         })();
     }, [page]);
