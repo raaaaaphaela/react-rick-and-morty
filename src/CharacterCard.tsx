@@ -10,7 +10,7 @@ export default function CharacterCard({id, name, image, status, onDelete}: {
             <h1>{name}</h1>
             <img src={image} alt={`You see ${name}`}/>
             <p>Status: {status}</p>
-            <button className="delete-btn" onClick={() => onDelete(id)}>Delete</button>
+            <button className="delete-btn" onClick={() => onDelete(id)}>Delete from current list</button>
         </div>
     )
 }
