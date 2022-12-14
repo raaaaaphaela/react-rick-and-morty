@@ -2,63 +2,26 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import './Rick-and-Morty.css';
 import CharacterGallery from "./CharacterGallery";
-import axios, {AxiosError} from "axios";
 import {Card} from "./Card";
+import ApiRequests from "./hooks/ApiRequests";
 
 function App() {
 
-    // const [count, setCount] = useState<number>(0);
     const [characters, setCharacters] = useState<Card[]>([]);
     const [page, setPage] = useState<number>(1);
     const [filter, setFilter] = useState<string>("");
+    const {getCharacters} = ApiRequests();
 
-    /* API calls */
-    async function getCharacters(): Promise<Card[]> {
-        try {
-            const response = await axios.get("https://rickandmortyapi.com/api/character", {
-                params: {
-                    name: filter, page: page
-                }
-            });
-            return response.data.results;
-        } catch
-            (e) {
-            throw e;
-        }
-    }
-
-    async function getCharactersByFilter(): Promise<Card[]> {
-        try {
-            const response = await axios.get("https://rickandmortyapi.com/api/character?name=" + filter);
-            return response.data.results;
-        } catch (e) {
-            throw e;
-        }
-    }
-
-    /* Get all characters with pagination option */
     useEffect(() => {
         (async () => {
             try {
-                const characters = await getCharacters();
+                const characters = await getCharacters(filter, page);
                 setCharacters(characters);
             } catch (e) {
                 console.log((e as Error).message);
             }
         })();
-    }, [page]);
-
-    /* Get all characters name filter */
-    useEffect(() => {
-        (async () => {
-            try {
-                const characters: Card[] = await getCharactersByFilter();
-                setCharacters(characters);
-            } catch (e) {
-                console.log(e);
-            }
-        })();
-    }, [filter]);
+    }, [page, filter]);
 
     const data: Card[] = characters.map(({id, name, image, status}) => {
         return {
