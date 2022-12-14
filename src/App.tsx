@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import './Rick-and-Morty.css';
 import CharacterGallery from "./CharacterGallery";
-import Button from "./Button";
 import axios from "axios";
 import {Card} from "./Card";
 
@@ -13,28 +12,47 @@ function App() {
     const [page, setPage] = useState<number>(1);
     const [filter, setFilter] = useState<string>("");
 
-
-    const getCharacters = () => {
-        return axios.get("https://rickandmortyapi.com/api/character?page=" + page)
-            .then(response => response.data)
-            .catch(e => console.log(e));
+    /* API calls */
+    async function getCharacters(): Promise<Card[]> {
+        try {
+            const response = await axios.get("https://rickandmortyapi.com/api/character?page=" + page);
+            return response.data.results;
+        } catch (e) {
+            throw e;
+        }
     }
 
-    const getCharactersByFilter = () => {
-        return axios.get("https://rickandmortyapi.com/api/character?name="+filter)
-            .then(response => response.data)
-            .catch(e => console.log(e));
+    async function getCharactersByFilter(): Promise<Card[]> {
+        try {
+            const response = await axios.get("https://rickandmortyapi.com/api/character?name=" + filter);
+            return response.data.results;
+        } catch (e) {
+            throw e;
+        }
     }
 
     /* Get all characters with pagination option */
     useEffect(() => {
-        getCharacters().then(data => setCharacters(data.results))
+        (async () => {
+            try {
+                const characters = await getCharacters();
+                setCharacters(characters);
+            } catch (e) {
+                console.log(e);
+            }
+        })();
     }, [page]);
 
     /* Get all characters name filter */
     useEffect(() => {
-        getCharactersByFilter().then(data => setCharacters(data.results))
-        console.log(characters)
+        (async () => {
+            try {
+                const characters: Card[] = await getCharactersByFilter();
+                setCharacters(characters);
+            } catch (e) {
+                console.log(e);
+            }
+        })();
     }, [filter]);
 
     const data: Card[] = characters.map(({id, name, image, status}) => {
@@ -52,18 +70,17 @@ function App() {
 
     /* Pagination */
     const nextPage = () => {
-        setPage(page+1);
+        setPage(page + 1);
     }
 
     const prevPage = () => {
-        page === 1 ? setPage(page) : setPage(page-1);
+        page === 1 ? setPage(page) : setPage(page - 1);
     }
 
     return (
         <div>
-            {/*<Button count={count} addFunction={() => setCount(count + 1)} takeFunction={() => setCount(count - 1)}/>*/}
-            {/*<hr/>*/}
-            <CharacterGallery characters={data} onDelete={onDelete} filter={filter} setFilter={setFilter} next={nextPage} prev={prevPage}/>
+            <CharacterGallery characters={data} onDelete={onDelete} filter={filter} setFilter={setFilter}
+                              next={nextPage} prev={prevPage}/>
         </div>
     );
 }
