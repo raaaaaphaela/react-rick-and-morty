@@ -15,9 +15,14 @@ function App() {
     /* API calls */
     async function getCharacters(): Promise<Card[]> {
         try {
-            const response = await axios.get("https://rickandmortyapi.com/api/charactesr?page=" + page);
+            const response = await axios.get("https://rickandmortyapi.com/api/character", {
+                params: {
+                    name: filter, page: page
+                }
+            });
             return response.data.results;
-        } catch (e) {
+        } catch
+            (e) {
             throw e;
         }
     }

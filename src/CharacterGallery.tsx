@@ -1,6 +1,6 @@
 import CharacterCard from "./CharacterCard";
 import {Card} from "./Card";
-import React, {useState} from "react";
+import React from "react";
 import Pagination from "./Pagination";
 
 export default function CharacterGallery({characters, onDelete, filter, setFilter, next, prev}: {
@@ -11,10 +11,6 @@ export default function CharacterGallery({characters, onDelete, filter, setFilte
     next: () => void,
     prev: () => void
 }) {
-/*
-    const [filter, setFilter] = useState("");
-*/
-
     return (<div className="gallery">
             <h1 className="header">Rick and Morty</h1>
             <div>
